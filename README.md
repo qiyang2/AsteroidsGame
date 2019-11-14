@@ -4,7 +4,6 @@ In this assignment we will start to replicate the old video game Asteroids. You 
 
 Suggested steps to complete this assignment
 -------------------------------------------
-
 1. Fork [this repository](https://github.com/APCSLowell/AsteroidsGame). 
 1. Open the program by opening `AsteroidsGame.pde` in Processing or opening the AsteroidsGame folder in Sublime.
 2. Uncomment the `extends floater` on Line 1 of `Spaceship.pde`
