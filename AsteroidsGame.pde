@@ -1,7 +1,8 @@
 //your variable declarations here
 Spaceship ship;
 Star [] nightSky = new Star[200];
-ArrayList <Asteroid> asteroid = new ArrayList <Asteroid> ();
+ArrayList<Asteroid> asteroid = new ArrayList<Asteroid> ();
+ArrayList<Bullet> go = new ArrayList<Bullet> ();
 public void setup() 
 {
   //your code here
@@ -10,16 +11,17 @@ public void setup()
   for(int i = 0; i< nightSky.length; i++){
   	nightSky[i] = new Star();
   }
-  for(int i = 0; i< 15;i++){
+  for(int i = 0; i< 20;i++){
 		asteroid.add(new Asteroid());
 	}
-  redraw();
+  
+ 
 
 }
 public void draw() 
 {
   //your code here
-  loop();
+
   background(0);
   ship.show();
   ship.move();
@@ -38,14 +40,37 @@ public void draw()
 			asteroid.remove(asteroid.get(i));
 			i--;
 		}
-		if(asteroid.size() == 0)
+		for(int j = 0; j< go.size(); j++)
 		{
-			fill(255,255,255);
-			textSize(20);
-			text("Game Over",200,200);
-			text("Reload Page",250,250);
+			if(dist((float)(go.get(j).getCenterX()),(float)(go.get(j).getCenterY()),(float)(asteroid.get(i).getCenterX()),(float)(asteroid.get(i).getCenterY())) <=20)
+			{
+				asteroid.remove(asteroid.get(i));
+				go.remove(go.get(j));
+				break;
+				
+			}
+			
+			
 		}
+		
+		
 	}
+	if(go.size()>= 0)
+	{
+	for(int i = 0; i< go.size(); i++)
+	{
+		go.get(i).show();
+		go.get(i).move();
+		if(go.get(i).getCenterX() == 500 || go.get(i).getCenterY() == 500)
+		{
+			go.remove(go.get(i));
+			i--;
+		}
+		
+		
+	}
+}
+	
 }
 	
 
@@ -59,6 +84,11 @@ public void keyPressed(){
 		ship.setDirectionX(0);
 		ship.setDirectionY(0);
 	}
+
+	if(key == ' ')
+  	{
+  		go.add(new Bullet(ship));
+  	}
 	if(key == CODED){
 
 	
@@ -80,6 +110,8 @@ public void keyPressed(){
 	else if(keyCode == RIGHT) {
 		ship.turn(10);
 	}
+	
+	
 }
 	
 }
